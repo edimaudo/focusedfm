@@ -1,78 +1,86 @@
-let currentGenre = "Rain";
-let currentTrackIndex = 0;
-const audio = new Audio();
-const playBtn = document.getElementById('play-btn');
-const genreSelector = document.getElementById('genre-selector');
+// Timer Logic
+let timeLeft = 25 * 60;
+let timerId = null;
+const timerDisplay = document.getElementById('timer');
+const startBtn = document.getElementById('start-pause');
 
-function loadTrack(index) {
-    const track = playlists[currentGenre][index];
-    audio.src = track.url;
-    document.getElementById('current-track-name').innerText = track.name;
-    updateTrackListUI();
+function updateTimerDisplay() {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-function updateTrackListUI() {
-    const list = document.getElementById('track-list');
-    list.innerHTML = '';
-    playlists[currentGenre].forEach((track, index) => {
-        const li = document.createElement('li');
-        li.className = `track-item ${index === currentTrackIndex ? 'active' : ''}`;
-        li.innerText = track.name;
-        li.onclick = () => {
-            currentTrackIndex = index;
-            loadTrack(index);
-            audio.play();
-            playBtn.innerText = '⏸';
-        };
-        list.appendChild(li);
+startBtn.addEventListener('click', () => {
+    if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+        startBtn.textContent = 'START';
+    } else {
+        startBtn.textContent = 'PAUSE';
+        timerId = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 0) clearInterval(timerId);
+        }, 1000);
+    }
+});
+
+document.getElementById('reset-timer').onclick = () => {
+    clearInterval(timerId);
+    timerId = null;
+    timeLeft = 25 * 60;
+    updateTimerDisplay();
+    startBtn.textContent = 'START';
+};
+
+// Audio Logic
+let currentGenre = "Rain";
+let trackIndex = 0;
+const audio = new Audio();
+const playPauseBtn = document.getElementById('play-pause-audio');
+
+function selectGenre(genre) {
+    currentGenre = genre;
+    trackIndex = 0;
+    loadAndPlay();
+    
+    document.querySelectorAll('.genre-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === genre);
     });
 }
 
-// Controls
-playBtn.onclick = () => {
+function loadAndPlay() {
+    const track = playlists[currentGenre][trackIndex];
+    audio.src = track.url;
+    document.getElementById('track-name').textContent = track.name;
+    document.getElementById('genre-name').textContent = currentGenre;
+    audio.play();
+    playPauseBtn.textContent = '⏸';
+}
+
+playPauseBtn.onclick = () => {
     if (audio.paused) {
         audio.play();
-        playBtn.innerText = '⏸';
+        playPauseBtn.textContent = '⏸';
     } else {
         audio.pause();
-        playBtn.innerText = '▶';
+        playPauseBtn.textContent = '▶';
     }
 };
 
-document.getElementById('next-btn').onclick = () => {
-    currentTrackIndex = (currentTrackIndex + 1) % playlists[currentGenre].length;
-    loadTrack(currentTrackIndex);
-    audio.play();
+document.getElementById('next-track').onclick = () => {
+    trackIndex = (trackIndex + 1) % playlists[currentGenre].length;
+    loadAndPlay();
 };
 
-document.getElementById('prev-btn').onclick = () => {
-    currentTrackIndex = (currentTrackIndex - 1 + playlists[currentGenre].length) % playlists[currentGenre].length;
-    loadTrack(currentTrackIndex);
-    audio.play();
+document.getElementById('prev-track').onclick = () => {
+    trackIndex = (trackIndex - 1 + playlists[currentGenre].length) % playlists[currentGenre].length;
+    loadAndPlay();
 };
 
-genreSelector.onchange = (e) => {
-    currentGenre = e.target.value;
-    currentTrackIndex = 0;
-    loadTrack(currentTrackIndex);
-    document.getElementById('current-genre-display').innerText = `Genre: ${currentGenre}`;
+document.getElementById('volume').oninput = (e) => {
+    audio.volume = e.target.value;
 };
 
-// Auto-advance
-audio.onended = () => document.getElementById('next-btn').click();
-
-// Theme Toggle Logic
-const themeToggle = document.getElementById('theme-toggle');
-themeToggle.onchange = () => {
-    const theme = themeToggle.checked ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-};
-
-// Initialize
-window.onload = () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    themeToggle.checked = savedTheme === 'dark';
-    loadTrack(0);
-};
+// Handle auto-looping for continuous focus
+audio.onended = () => document.getElementById('next-track').click();
