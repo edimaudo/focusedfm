@@ -6,7 +6,9 @@
 
     <div class="main-controls">
         <button id="prev-btn" class="nav-btn" aria-label="Previous Track">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+            </svg>
         </button>
         
         <button id="play-btn" class="play-circle" aria-label="Play or Pause">
@@ -14,7 +16,9 @@
         </button>
 
         <button id="next-btn" class="nav-btn" aria-label="Next Track">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6h2v12h-2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 18l8.5-6L6 6v12zM16 6h2v12h-2z"/>
+            </svg>
         </button>
     </div>
 
@@ -23,27 +27,42 @@
             <button class="footer-link" id="channels-btn">channels</button>
             <div id="genre-menu" class="genre-content">
                 {% for genre in playlists.keys() %}
-                <button onclick="selectGenre('{{ genre }}')">{{ genre }}</button>
+                <button onclick="selectGenre('{{ genre }}')" aria-label="Select {{ genre }} channel">{{ genre }}</button>
                 {% endfor %}
             </div>
         </div>
 
-        <div class="footer-item volume-group">
-            <span class="vol-icon">🔈</span>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5" aria-label="Volume Control">
-            <span class="vol-icon">🔊</span>
+        <div class="footer-item volume-controls">
+            <button id="vol-down" class="vol-btn" aria-label="Decrease Volume">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>
+                </svg>
+            </button>
+            <button id="vol-up" class="vol-btn" aria-label="Increase Volume">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 9v6h4l5 5V4L9 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+            </button>
         </div>
 
         <div class="footer-item">
             <span class="footer-link" id="track-info">track info</span>
         </div>
     </div>
-
-    <div class="timer-mini">
-        <span id="timer-display">25:00</span>
-        <button id="timer-toggle">start timer</button>
-    </div>
 </div>
 
-<script>const playlists = {{ playlists | tojson }};</script>
+<script>
+    const playlists = {{ playlists | tojson }};
+    
+    // Volume adjustment logic for the discrete icons
+    document.getElementById('vol-down').onclick = () => {
+        if (audio.volume > 0.1) audio.volume -= 0.1;
+        else audio.volume = 0;
+    };
+
+    document.getElementById('vol-up').onclick = () => {
+        if (audio.volume < 0.9) audio.volume += 0.1;
+        else audio.volume = 1;
+    };
+</script>
 {% endblock %}
