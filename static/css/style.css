@@ -1,0 +1,74 @@
+:root {
+    /* Light Theme Vars */
+    --primary-blue: #2563EB;
+    --secondary-blue: #3B82F6;
+    --bg-color: #EFF6FF;
+    --accent-blue: #1D4ED8;
+    --text-color: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --ui-text: #1E3A8A;
+}
+
+[data-theme="dark"] {
+    /* Dark Theme Vars */
+    --primary-blue: #3B82F6;
+    --secondary-blue: #60A5FA;
+    --bg-color: #1E3A8A;
+    --accent-blue: #93C5FD;
+    --text-color: #F0F9FF;
+    --card-bg: #111827;
+    --ui-text: #F0F9FF;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--ui-text);
+    transition: background 0.3s ease;
+    margin: 0;
+}
+
+.container { width: 90%; max-width: 800px; margin: 0 auto; padding: 2rem 0; }
+
+header nav { display: flex; justify-content: space-between; align-items: center; }
+
+.player-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.controls button {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 0.5rem;
+}
+
+.genre-select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--secondary-blue);
+}
+
+.track-list {
+    margin-top: 2rem;
+    text-align: left;
+    list-style: none;
+    padding: 0;
+}
+
+.track-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--secondary-blue);
+    cursor: pointer;
+}
+
+.track-item.active { font-weight: bold; color: var(--primary-blue); }
