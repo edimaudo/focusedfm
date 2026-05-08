@@ -1,86 +1,68 @@
-// Timer Logic
-let timeLeft = 25 * 60;
-let timerId = null;
-const timerDisplay = document.getElementById('timer');
-const startBtn = document.getElementById('start-pause');
-
-function updateTimerDisplay() {
-    const mins = Math.floor(timeLeft / 60);
-    const secs = timeLeft % 60;
-    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
-
-startBtn.addEventListener('click', () => {
-    if (timerId) {
-        clearInterval(timerId);
-        timerId = null;
-        startBtn.textContent = 'START';
-    } else {
-        startBtn.textContent = 'PAUSE';
-        timerId = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay();
-            if (timeLeft <= 0) clearInterval(timerId);
-        }, 1000);
-    }
-});
-
-document.getElementById('reset-timer').onclick = () => {
-    clearInterval(timerId);
-    timerId = null;
-    timeLeft = 25 * 60;
-    updateTimerDisplay();
-    startBtn.textContent = 'START';
-};
-
-// Audio Logic
 let currentGenre = "Rain";
-let trackIndex = 0;
+let trackIdx = 0;
+let isPlaying = false;
 const audio = new Audio();
-const playPauseBtn = document.getElementById('play-pause-audio');
 
-function selectGenre(genre) {
-    currentGenre = genre;
-    trackIndex = 0;
-    loadAndPlay();
-    
-    document.querySelectorAll('.genre-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent === genre);
-    });
-}
-
+// Audio Handlers
 function loadAndPlay() {
-    const track = playlists[currentGenre][trackIndex];
+    const track = playlists[currentGenre][trackIdx];
     audio.src = track.url;
-    document.getElementById('track-name').textContent = track.name;
-    document.getElementById('genre-name').textContent = currentGenre;
-    audio.play();
-    playPauseBtn.textContent = '⏸';
+    document.getElementById('track-info').innerText = track.name;
+    if (isPlaying) audio.play();
 }
 
-playPauseBtn.onclick = () => {
+document.getElementById('play-btn').onclick = () => {
     if (audio.paused) {
         audio.play();
-        playPauseBtn.textContent = '⏸';
+        isPlaying = true;
     } else {
         audio.pause();
-        playPauseBtn.textContent = '▶';
+        isPlaying = false;
     }
 };
 
-document.getElementById('next-track').onclick = () => {
-    trackIndex = (trackIndex + 1) % playlists[currentGenre].length;
+document.getElementById('next-btn').onclick = () => {
+    trackIdx = (trackIdx + 1) % playlists[currentGenre].length;
     loadAndPlay();
 };
 
-document.getElementById('prev-track').onclick = () => {
-    trackIndex = (trackIndex - 1 + playlists[currentGenre].length) % playlists[currentGenre].length;
+document.getElementById('prev-btn').onclick = () => {
+    trackIdx = (trackIdx - 1 + playlists[currentGenre].length) % playlists[currentGenre].length;
     loadAndPlay();
 };
 
-document.getElementById('volume').oninput = (e) => {
+// Auto-advance logic
+audio.onended = () => document.getElementById('next-btn').click();
+
+// Volume logic
+document.getElementById('volume-slider').oninput = (e) => {
     audio.volume = e.target.value;
 };
 
-// Handle auto-looping for continuous focus
-audio.onended = () => document.getElementById('next-track').click();
+// Genre Selection
+function selectGenre(genre) {
+    currentGenre = genre;
+    trackIdx = 0;
+    document.getElementById('genre-menu').style.display = 'none';
+    loadAndPlay();
+}
+
+document.getElementById('channels-btn').onclick = () => {
+    const menu = document.getElementById('genre-menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+};
+
+// Theme Persistence
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.onchange = () => {
+    const mode = themeToggle.checked ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', mode);
+    localStorage.setItem('theme', mode);
+};
+
+window.onload = () => {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+    themeToggle.checked = (saved === 'dark');
+    loadAndPlay();
+};
