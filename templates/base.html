@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>focusedfm - Deep Concentration</title>
+    <title>focusedfm</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">focusedfm</div>
-            <div class="theme-switch">
-                <label for="theme-toggle" aria-label="Toggle Dark Mode">
-                    <input type="checkbox" id="theme-toggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </nav>
+    <header class="top-nav">
+        <div class="logo">focusedfm</div>
+        <div class="theme-control">
+            <label class="switch" for="theme-toggle">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="theme-label">Dark Mode</span>
+        </div>
     </header>
 
-    <main class="container">
+    <main>
         {% block content %}{% endblock %}
     </main>
 
