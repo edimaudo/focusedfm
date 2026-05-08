@@ -1,37 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="player-card">
-    <section class="music-player">
-        <select id="genre-selector" class="genre-select" aria-label="Select Genre">
-            {% for genre in playlists.keys() %}
-                <option value="{{ genre }}">{{ genre }}</option>
-            {% endfor %}
-        </select>
-
-        <div class="now-playing">
-            <h2 id="current-track-name">Select a track</h2>
-            <p id="current-genre-display">Genre: Rain</p>
+<div class="container">
+    <div class="timer-section">
+        <div class="timer-display" id="timer">25:00</div>
+        <div class="timer-controls">
+            <button class="btn-timer" id="start-pause">START</button>
+            <button class="btn-timer" id="reset-timer">RESET</button>
         </div>
+    </div>
 
-        <div class="controls">
-            <button id="prev-btn" aria-label="Previous Track">⏮</button>
-            <button id="play-btn" aria-label="Play or Pause">▶</button>
-            <button id="next-btn" aria-label="Next Track">⏭</button>
-        </div>
-
-        <div class="volume-container">
-            <label for="volume-slider">Volume</label>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
-        </div>
-
-        <ul id="track-list" class="track-list">
-            </ul>
-    </section>
+    <div class="genre-grid">
+        {% for genre in playlists.keys() %}
+            <button class="genre-btn" onclick="selectGenre('{{ genre }}')">{{ genre }}</button>
+        {% endfor %}
+    </div>
 </div>
 
+<footer class="player-bar">
+    <div class="player-grid">
+        <div class="now-playing-info">
+            <h4 id="track-name">Select Genre</h4>
+            <p id="genre-name">Instrumental Focus</p>
+        </div>
+
+        <div class="audio-controls">
+            <button class="ctrl-btn" id="prev-track">⏮</button>
+            <button class="ctrl-btn" id="play-pause-audio" style="font-size: 2.5rem;">▶</button>
+            <button class="ctrl-btn" id="next-track">⏭</button>
+        </div>
+
+        <div class="volume-box">
+            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" style="width: 100%;">
+        </div>
+    </div>
+</footer>
+
 <script>
-    // Pass Python data to JS
     const playlists = {{ playlists | tojson }};
 </script>
 {% endblock %}
