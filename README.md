@@ -1,12 +1,3 @@
 # focusedfm
 
-Productivity focused on powered by great music
-
-Music powered by Pixabay, Musopen and Mixkit
-- Electronic : Pixabay Minimal Techno
-
-- Downtempo : Pixabay Lofi
-
-- Classical: Musopen Bach Library
-
-- Rain : Mixkit Rain Sounds
+focusedfm is a cool music tool that helps you focus and get more work done when you're busy. It is built In line with the principle that playing regular lyrical music distracts rather than focuses the mind,
