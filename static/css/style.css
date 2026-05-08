@@ -1,120 +1,106 @@
 :root {
-    --bg-dark: #0f172a;
-    --card-dark: #1e293b;
-    --accent-blue: #3b82f6;
-    --text-main: #f8fafc;
-    --text-dim: #94a3b8;
-    --timer-font-size: 8rem;
+    --p-blue: #2563EB; --s-blue: #3B82F6; --bg: #EFF6FF; --text: #1D4ED8;
+}
+
+[data-theme="dark"] {
+    --p-blue: #3B82F6; --s-blue: #60A5FA; --bg: #1E3A8A; --text: #F0F9FF;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Inter', sans-serif;
     margin: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: all 0.3s ease;
 }
 
-/* Timer Section */
-.timer-display {
-    font-size: var(--timer-font-size);
-    font-weight: 700;
-    letter-spacing: -2px;
-    margin-bottom: 1rem;
-    color: var(--text-main);
-}
+.minimal-player-container { text-align: center; width: 100%; max-width: 500px; }
 
-.timer-controls {
+.tagline { font-size: 1.2rem; font-weight: 300; margin-bottom: 3rem; letter-spacing: 0.5px; }
+
+/* Main Player */
+.main-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
     margin-bottom: 4rem;
 }
 
-.btn-timer {
-    background: transparent;
-    border: 2px solid var(--accent-blue);
-    color: var(--accent-blue);
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0 0.5rem;
-}
-
-.btn-timer:hover, .btn-timer.active {
-    background: var(--accent-blue);
-    color: white;
-}
-
-/* Player Bar */
-.player-bar {
-    width: 100%;
-    background: var(--card-dark);
-    padding: 1.5rem 0;
-    position: fixed;
-    bottom: 0;
-    border-top: 1px solid #334155;
-}
-
-.player-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    align-items: center;
-    padding: 0 2rem;
-}
-
-.now-playing-info h4 { margin: 0; font-size: 1rem; }
-.now-playing-info p { margin: 0; color: var(--text-dim); font-size: 0.8rem; }
-
-.audio-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.ctrl-btn {
-    background: none;
+.play-circle {
+    width: 120px;
+    height: 120px;
+    background-color: var(--p-blue);
+    border-radius: 50%;
     border: none;
-    color: var(--text-main);
-    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.play-circle:hover { transform: scale(1.05); }
+
+.play-triangle {
+    width: 0; height: 0; 
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 35px solid white;
+    margin-left: 10px;
+}
+
+/* Pause Icon State */
+.paused-icon {
+    width: 30px; height: 40px;
+    border-left: 10px solid white;
+    border-right: 10px solid white;
+    display: none;
+}
+
+.nav-btn {
+    width: 40px; height: 40px;
+    background: none; border: none;
+    color: var(--p-blue);
     cursor: pointer;
 }
 
-.genre-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 2rem;
+/* Footer Utility Row */
+.player-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
 }
 
-.genre-btn {
-    background: #1e293b;
-    border: 1px solid #334155;
-    color: var(--text-dim);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+.footer-link {
+    background: none; border: none;
+    color: var(--text);
+    font-family: 'Inter';
+    font-size: 0.9rem;
     cursor: pointer;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-decoration: none;
 }
 
-.genre-btn.active {
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
+.volume-group { display: flex; align-items: center; gap: 8px; }
+
+/* Genre Menu */
+.dropdown { position: relative; }
+.genre-content {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    background: var(--bg);
+    border: 1px solid var(--p-blue);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 10;
+}
+.genre-content button {
+    display: block; width: 100%; background: none; border: none;
+    color: var(--text); padding: 5px; text-align: left; cursor: pointer;
 }
