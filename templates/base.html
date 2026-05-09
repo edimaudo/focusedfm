@@ -1,28 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>focusedfm</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}focusedfm{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  {% block head %}{% endblock %}
 </head>
 <body>
-    <header class="top-nav">
-        <div class="logo">focusedfm</div>
-        <div class="theme-control">
-            <label class="switch" for="theme-toggle">
-                <input type="checkbox" id="theme-toggle">
-                <span class="slider round"></span>
-            </label>
-            <span class="theme-label">Dark Mode</span>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand" aria-label="focusedfm home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-name">focused<em>fm</em></span>
+      </div>
+
+      <div class="header-controls">
+        <div class="theme-toggle" role="group" aria-label="Theme selection">
+          <span class="theme-label" aria-hidden="true">☀</span>
+          <button
+            class="toggle-track"
+            id="themeToggle"
+            role="switch"
+            aria-checked="true"
+            aria-label="Toggle light or dark theme"
+          >
+            <span class="toggle-thumb"></span>
+          </button>
+          <span class="theme-label" aria-hidden="true">☾</span>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+  <main id="main-content" role="main">
+    {% block content %}{% endblock %}
+  </main>
 
-    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>
