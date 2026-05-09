@@ -48,12 +48,12 @@ TRACKS = {
 }
 
 GENRE_META = {
-    "rain":       {"label": "Rain",            "icon": "🌧"},
-    "lofi":       {"label": "Lo-Fi",           "icon": "🎧"},
-    "nature":     {"label": "Nature",          "icon": "🌿"},
-    "electronic": {"label": "Electronic",      "icon": "⚡"},
-    "triphop":    {"label": "Trip-Hop",        "icon": "🎷"},
-    "gregorian":  {"label": "Gregorian Chant", "icon": "🕍"},
+    "rain":       {"label": "Rain"},
+    "lofi":       {"label": "Lo-Fi"},
+    "nature":     {"label": "Nature"},
+    "electronic": {"label": "Electronic"},
+    "triphop":    {"label": "Trip-Hop"},
+    "gregorian":  {"label": "Gregorian Chant"},
 }
 
 @app.route("/")
