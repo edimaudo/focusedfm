@@ -1,6 +1,6 @@
 /**
  * focusedfm — Player JS
- * Clean minimal, focusmusic.fm-inspired
+ * Clean minimal, focusmusic.fm
  */
 (function () {
   'use strict';
