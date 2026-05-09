@@ -60,11 +60,6 @@ GENRE_META = {
 def index():
     return render_template("index.html", tracks=TRACKS, genre_meta=GENRE_META)
 
-@app.route("/api/tracks/<genre>")
-def get_tracks(genre):
-    if genre not in TRACKS:
-        return jsonify({"error": "Genre not found"}), 404
-    return jsonify({"genre": genre, "tracks": TRACKS[genre]})
 
 if __name__ == "__main__":
     app.run(debug=True)
