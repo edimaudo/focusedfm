@@ -140,9 +140,11 @@
 
 {% endblock %}
 
-{% block scripts %}
+{% block data %}
 <script>
   window.TRACKS     = {{ tracks | tojson }};
   window.GENRE_META = {{ genre_meta | tojson }};
 </script>
 {% endblock %}
+
+{% block scripts %}{% endblock %}
