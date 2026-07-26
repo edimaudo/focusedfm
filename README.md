@@ -6,6 +6,8 @@ focusedfm is a productivity tool that helps you focus. It is built In line with 
 ```
 focusedfm/
 ├── app.py
+├── vercel.json
+├── requirements.txt
 ├── static/
 │   ├── css/
 │   │   └── style.css
