@@ -40,11 +40,11 @@ TRACKS = {
         {"id": 5, "title": "Slow Burn",               "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"},
     ],
     "gregorian": [
-        {"id": 1, "title": "Kyrie Eleison",           "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"},
-        {"id": 2, "title": "Agnus Dei",               "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"},
-        {"id": 3, "title": "Gloria in Excelsis",      "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3"},
-        {"id": 4, "title": "Sanctus",                 "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"},
-        {"id": 5, "title": "Benedictus",              "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"},
+        {"id": 1, "title": "Improperia",           "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/Improperia.ogg/Improperia.ogg.mp3"},
+        {"id": 2, "title": "Dies Irae",               "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f2/Dies.irae.ogg/Dies.irae.ogg.mp3"},
+        {"id": 3, "title": "Ecce Lignum Crucis",      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/Ecce.lignum.Crucis.ogg/Ecce.lignum.Crucis.ogg.mp3"},
+        {"id": 4, "title": "Johannes Hymnus",         "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e9/Johannes.Hymnus.ogg/Johannes.Hymnus.ogg.mp3"},
+        #{"id": 5, "title": "Benedictus",              "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"},
     ],
 }
 
