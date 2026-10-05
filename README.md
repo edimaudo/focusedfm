@@ -1,6 +1,6 @@
 # focusedfm
 
-focusedfm is a productivity tool that helps you focus. It is built In line with the principle that playing regular lyrical music distracts rather than focuses the mind.
+focusedfm is music to help you focus. It's built with the principle that playing regular lyrical music distracts rather than focuses the mind.
 
 ## Project Structure
 ```
